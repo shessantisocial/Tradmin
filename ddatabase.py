@@ -1,5 +1,4 @@
 import sqlite3
-import bcrypt
 
 def createdatabase():
     conn = sqlite3.connect('userdata.db')
@@ -20,10 +19,9 @@ def insert_user(email, password):
     conn = sqlite3.connect('userdata.db')
     cursor = conn.cursor()
 
-    hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     cursor.execute('''
     INSERT INTO users (email, password) VALUES (?, ?)
-    ''', (email, hashed_password))
+    ''', (email, password))
 
     conn.commit()
     conn.close()
@@ -37,10 +35,17 @@ def check_user(email, password):
     ''', (email,))
 
     user = cursor.fetchone()
+    if user and user[2] == password:  # user[2] refers to the 'password' field
+        return True
+    return False
+
     conn.close()
 
-    if user:
-        hashed_password = user
-        if bcrypt.checkpw(password.encode(), hashed_password):
-            return True
-    return False
+
+
+
+    # if user:
+    #     hashed_password = user
+    #     if bcrypt.checkpw(password.encode(), hashed_password):
+    #         return True
+    # return False

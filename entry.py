@@ -5,6 +5,29 @@ from ddatabase import createdatabase, insert_user, check_user
 import CTkMessagebox 
 from customtkinter import CTkButton, CTk
 
+
+class CTkMessagebox(ctk.CTkToplevel):
+    def __init__(self, title="Message", message="Message", type="info"):
+        super().__init__()
+        self.title(title)
+        self.geometry("300x150")
+        self.resizable(0, 0)
+
+        label = ctk.CTkLabel(self, text=message, font=('Arial Bold', 14))
+        label.pack(pady=20)
+
+        button = ctk.CTkButton(self, text="OK", command=self.destroy)
+        button.pack(pady=10)
+
+    @staticmethod
+    def show_info(title, message):
+        CTkMessagebox(title=title, message=message, type="info")
+
+    @staticmethod
+    def show_error(title, message):
+        CTkMessagebox(title=title, message=message, type="error")
+
+
 class splashscreen(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -38,12 +61,12 @@ def loginapp():
     sideimg = Image.open('1.jpeg')
     emailimg= Image.open('emailimage.jpeg')
     passimg = Image.open('passwordimage.jpeg')
-    googleimg = Image.open('googleimage.jpeg')
+    # googleimg = Image.open('googleimage.jpeg')
 
     sideimage=CTkImage(dark_image=sideimg, light_image=sideimg, size=(446,490))
     emailimage = CTkImage(dark_image=emailimg, light_image=emailimg, size=(20,20))
     passimage = CTkImage(dark_image=passimg, light_image=passimg, size=(17,17))
-    googleimage= CTkImage(dark_image=googleimg, light_image=googleimg, size=(17,17))
+    # googleimage= CTkImage(dark_image=googleimg, light_image=googleimg, size=(17,17))
 
     CTkLabel(master=loginscreen, text='', image=sideimage).pack(expand=True, side='left') 
 
