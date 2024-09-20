@@ -5,6 +5,30 @@ from PIL import Image
 from tkcalendar import DateEntry
 from tkintermapview import TkinterMapView
 
+def coasterpopup():
+    # Create a new Toplevel window (popup)
+    popup = CTkToplevel()
+    popup.title("Coaster Bus Details")
+    popup.geometry("300x200")
+
+    # Add a label with details inside the popup
+    detail_label = CTkLabel(master=popup, text="This is a Coaster Bus. \nIt has 30 seats and is \nideal for group trips.", font=("Arial", 14), text_color="#0B2F4F")
+    detail_label.pack(pady=20)
+
+    # Add an 'Okay' button to close the popup
+    ok_button = CTkButton(master=popup, text="Okay", command=popup.destroy, text_color="#FFFFFF", fg_color="#517BF4", hover_color="#0B2F4F", width=100)
+    ok_button.pack(pady=20)
+
+    popup.grab_set()  # Ensure the popup is modal (prevents interaction with main window until closed)
+
+def corollapopup():
+    popup = CTkToplevel()
+    popup.title("Corolla Car Details")
+    popup.geometry("300x200")
+
+    
+
+
 app = ctk.CTk()
 app.title('TRADMIN')
 app.geometry('1366x768')
@@ -38,7 +62,7 @@ CTkLabel(master=grid, text="Available vehicles", font=("Arial Bold", 17), text_c
 
 coasterbusimg = Image.open('Coaster bus.JPG')
 coasterbus = CTkImage(dark_image=coasterbusimg, light_image=coasterbusimg)
-CTkButton(master=sidebar, image=coasterbus, text="Coaster Bus", text_color='#FFFFFF', font=("Arial Bold", 14), hover_color="#0B2F4F", anchor="w").pack(anchor="center", ipady=5, pady=(16, 0))
+CTkButton(master=sidebar, image=coasterbus, text="Coaster Bus", text_color='#FFFFFF', font=("Arial Bold", 14), hover_color="#0B2F4F", anchor="w", command=coasterpopup).pack(anchor="center", ipady=5, pady=(16, 0))
 corollaimg = Image.open('Corolla.JPG')
 corolla = CTkImage(dark_image=corollaimg, light_image=corollaimg)
 CTkButton(master=sidebar, image=corolla, text="Corolla", text_color='#FFFFFF', font=("Arial Bold", 14), hover_color="#0B2F4F", anchor="w").pack(anchor="center", ipady=5, pady=(16, 0))
@@ -103,12 +127,14 @@ historylabel.pack(anchor='nw', pady=(29, 0), padx=27)
 # Label for the description
 CTkLabel(master=historyframe, text="View your team's trips and transactions.", font=("Arial Bold", 17), text_color='#0B2F4F').pack(anchor="nw", pady=(25,0), padx=27)
 
-CTkButton(master=historyframe, text="View all", text_color="#474747", font=("Arial Bold", 14),  fg_color="transparent", hover_color="#0B2F4F", width=100, height=10).pack(anchor="nw", padx=27, pady=(10, 0))
+CTkButton(master=historyframe, text="View all", text_color="#474747", font=("Arial Bold", 14),  fg_color="transparent", hover_color="#0B2F4F", width=100, height=10).pack(anchor="nw", padx=27, pady=(10, 0), side="left")
+button2 = CTkButton(master=historyframe, text="Luxury", text_color="#474747", fg_color="#517BF4", hover_color="#0B2F4F", font=("Arial Bold", 14))
+button2.pack(anchor="nw", padx=(10, 0), pady=(10, 0), side="left")
 
 # Add the search entry directly below the text description in the same frame (historyframe)
 search_entry = CTkEntry(master=historyframe, width=300, placeholder_text="Search")
-search_entry.pack(anchor="nw", padx=27, pady=(10,0))  # Use pack instead of grid to align with the previous elements
-
+search_entry.pack(anchor="nw", padx=27, pady=(10,0))# Use pack instead of grid to align with the previous elements
+  
 # CTkButton(master=historyframe, text="View all", text_color="#FFFFFF", font=("Arial Bold", 14), hover_color="#0B2F4F").pack(anchor="w", padx=(0, 0), pady=(0, 0))
 # CTkButton(master=historyframe, text="Luxury", text_color="#FFFFFF", font=("Arial Bold", 14), hover_color="#0B2F4F", anchor="center").pack(anchor="center", ipady=5, pady=(60, 0))
 
