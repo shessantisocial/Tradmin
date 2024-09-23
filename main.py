@@ -1,4 +1,4 @@
-import tkinter
+from tkinter import Listbox, Scrollbar, END, VERTICAL
 from customtkinter import *
 import customtkinter as ctk
 from PIL import Image
@@ -103,6 +103,7 @@ volvoimg = Image.open('Volvo.JPG')
 volvo = CTkImage(dark_image=volvoimg, light_image=volvoimg)
 CTkButton(master=sidebar, image=volvo, text="Volvo", text_color='#FFFFFF', font=("Arial Bold", 14), hover_color="#0B2F4F", anchor="w", command=lambda: select_vehicle_and_popup("Sienna", siennapopup)).pack(anchor="center", ipady=5, pady=(16, 0))
 
+
 bottomframe = CTkFrame(master=app, fg_color='#FFFFFF', width=650, height=200, corner_radius=0)
 bottomframe.pack_propagate(0)
 bottomframe.pack(fill='x', anchor='w', side='bottom')
@@ -111,14 +112,89 @@ grid = CTkFrame(master=bottomframe, fg_color='transparent')
 grid.pack(fill= 'both', padx=27, pady=(31,0))
 
 CTkLabel(master=grid, text="FROM:", font=("Arial Bold", 17), text_color="#0B2F4F", justify="left").grid(row=0, column=0, sticky="w")
-CTkEntry(master=grid, fg_color="#F0F0F0", border_width=0, width=300).grid(row=1, column=0, ipady=10)
+# CTkEntry(master=grid, fg_color="#F0F0F0", border_width=0, width=300).grid(row=1, column=0, ipady=10)
+# CTkLabel(master=grid, text="TO:", font=("Arial Bold", 17), text_color="#0B2F4F", justify="left").grid(row=0, column=1, sticky="w", padx=(25,0))
+# CTkEntry(master=grid, fg_color="#F0F0F0", border_width=0, width=300).grid(row=1, column=1, ipady=10, padx=(24,0))
+# CTkLabel(master=grid, text="DATE:", font=("Arial Bold", 17), text_color="#0B2F4F", justify="left").grid(row=0, column=2, sticky="w", padx=(30,0))
+
+# Create a frame to hold the "From" Listbox and scrollbar
+# fromframe = ctk.CTkFrame(master=grid)
+# fromframe.grid(row=1, column=0, sticky="nw")
+
+# fromlabel = ctk.CTkLabel(master=grid, text="FROM:", font=("Arial Bold", 17), text_color="#0B2F4F")
+# fromlabel.grid(row=0, column=0, sticky="w")
+
+from_listbox = Listbox(master=grid, height=10)
+from_listbox.grid(row=1, column=0, sticky="nsew")
+from_scrollbar = Scrollbar(master=grid, orient=VERTICAL, command=from_listbox.yview)
+from_scrollbar.grid(row=1, column=0, sticky='ns', padx=(200, 0))  # Adjust as necessary
+from_listbox.config(yscrollcommand=from_scrollbar.set)
+
+# # Create a scrollbar for the "From" list
+# fromscrollbar = Scrollbar(bottomframe, orient=VERTICAL)
+# fromscrollbar.pack(side='right', fill='y')
+# # fromscrollbar.grid(row=1, column=0, sticky='ns')
+
+# # Create a Listbox for the "From" list and attach the scrollbar
+# from_listbox = Listbox(bottomframe, height=10, yscrollcommand=fromscrollbar.set)
+# from_listbox.pack(side='left', fill='y')
+# # from_listbox.grid(row=1, column=0, sticky='nsew')
+
+# # Configure the scrollbar to work with the Listbox
+# fromscrollbar.config(command=from_listbox.yview)
+
+# Populate the "From" Listbox with a list of places
+fromplaces = ['Lagos', 'Oyo', 'Osun', 'Kwara', 'Ondo', 'Ogun', 'Abuja', 'Port-Harcourt', 'Kogi']
+for place in fromplaces:
+    from_listbox.insert(END, place)
+
+# bottomframe = CTkFrame(master=app, fg_color='#FFFFFF', width=650, height=200, corner_radius=0)
+# bottomframe.pack_propagate(0)
+# bottomframe.pack(fill='x', anchor='w', side='bottom')
+
+# grid = CTkFrame(master=bottomframe, fg_color='transparent')
+# grid.pack(fill= 'both', padx=27, pady=(31,0))
+
 CTkLabel(master=grid, text="TO:", font=("Arial Bold", 17), text_color="#0B2F4F", justify="left").grid(row=0, column=1, sticky="w", padx=(25,0))
-CTkEntry(master=grid, fg_color="#F0F0F0", border_width=0, width=300).grid(row=1, column=1, ipady=10, padx=(24,0))
-CTkLabel(master=grid, text="DATE:", font=("Arial Bold", 17), text_color="#0B2F4F", justify="left").grid(row=0, column=2, sticky="w", padx=(30,0))
+# to_frame = ctk.CTkFrame(master=grid)
+# to_frame.grid(row=1, column=1, sticky="nw", padx=(25, 0))
+
+# to_label = ctk.CTkLabel(master=grid, text="TO:", font=("Arial Bold", 17), text_color="#0B2F4F")
+# to_label.grid(row=0, column=1, sticky="w", padx=(25, 0))
+
+# # Create a scrollbar for the "To" list
+# to_scrollbar = Scrollbar(bottomframe, orient=VERTICAL)
+# to_scrollbar.pack(side='right', fill='y')
+
+# # Create a Listbox for the "To" list and attach the scrollbar
+# to_listbox = Listbox(bottomframe, height=10, yscrollcommand=to_scrollbar.set)
+# to_listbox.pack(side='left', fill='y')
+
+# # Configure the scrollbar to work with the Listbox
+# to_scrollbar.config(command=to_listbox.yview)
+
+to_listbox = Listbox(master=grid, height=10)
+to_listbox.grid(row=1, column=1, sticky="nsew")
+to_scrollbar = Scrollbar(master=grid, orient=VERTICAL, command=to_listbox.yview)
+to_scrollbar.grid(row=1, column=1, sticky='ns', padx=(200, 0))  # Adjust as necessary
+to_listbox.config(yscrollcommand=to_scrollbar.set)
+
+# Populate the "To" Listbox with a list of places
+toplaces = ['Lagos', 'Oyo', 'Osun', 'Kwara', 'Ondo', 'Ogun', 'Abuja', 'Port-Harcourt', 'Kogi']
+for place in toplaces:
+    to_listbox.insert(END, place)    
+
 # CTkEntry(master=grid, fg_color="#F0F0F0", border_width=0, width=300).grid(row=1, column=2, ipady=10, padx=(30,0))
 # Create the date entry using tkcalendar
-date_entry = DateEntry(master=grid, width=16, background='darkblue', foreground='white', borderwidth=2, date_pattern='y-mm-dd')
-date_entry.grid(row=1, column=2, ipady=10, padx=(30, 0))
+
+CTkLabel(master=grid, text="DATE:", font=("Arial Bold", 17), text_color="#0B2F4F").grid(row=0, column=2, sticky="w", padx=(30, 0))
+date_entry = DateEntry(master=grid, width=16, background='darkblue', foreground='white', borderwidth=2, date_pattern='yy-mm-dd')
+date_entry.grid(row=1, column=2, ipady=5, padx=(30, 0), pady=(0, 10))
+
+# Configure grid weights to allow resizing
+grid.columnconfigure(0, weight=1)
+grid.columnconfigure(1, weight=1)
+grid.columnconfigure(2, weight=1)
 
 mapframe = CTkFrame(master=app, fg_color='#FFFFFF', width=550, height=510, corner_radius=0)
 mapframe.pack_propagate(0)

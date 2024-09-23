@@ -41,7 +41,7 @@ class splashscreen(ctk.CTk):
         splashlabel = CTkLabel(self, text='' ,image=splashimage)
         splashlabel.pack(expand=True)
 
-        self.after(1100, self.login)
+        self.after(2200, self.login)
 
     def login(self):
         self.destroy()
