@@ -4,6 +4,7 @@ from PIL import Image
 from ddatabase import createdatabase, insert_user, check_user
 import CTkMessagebox 
 from customtkinter import CTkButton, CTk
+from main import *
 
 
 class CTkMessagebox(ctk.CTkToplevel):
@@ -94,10 +95,10 @@ def loginapp():
         password = entry2.get()
 
         if check_user(email, password):
-            # Login successful, show success message or redirect to another page
             CTkMessagebox.show_info("Login Success", f"Welcome {email}!")
+            loginscreen.destroy()
+            main_page()
         else:
-            # Login failed, show error message
             CTkMessagebox.show_error("Login Error", "Invalid email or password. Please try again.")
 
     button1 = CTkButton(master=frame, text='LOGIN', fg_color='#517BF4', hover_color='#001222', font=('Arial Bold', 12), text_color='#ffffff', width=225, corner_radius=14, command=loginuser)
@@ -167,9 +168,10 @@ def signupapp():
 
         if password == confirm_password:
             insert_user(email, password)
-            # Show success message or redirect to login page
             CTkMessagebox.show_info("Signup Success", "Your account has been created successfully!")
-            openlogin()
+            signupscreen.destroy() 
+            main_page()             
+            # openlogin()
         else:
             CTkMessagebox.show_error("Signup Error", "Passwords do not match.")
 
